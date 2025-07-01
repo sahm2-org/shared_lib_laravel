@@ -1,12 +1,12 @@
 {
-  "name": "saham-org/shared_lib_laravel",
+  "name": "sahm2-org/shared_lib_laravel",
   "type": "library",
   "description": "Saham shared model logic",
-  "homepage": "https://sahmapp.com",
+  "homepage": "https://sahm.food",
   "authors": [
     {
       "name": "saham-org",
-      "email": "info@sahmapp.com",
+      "email": "info@sahm.food",
       "role": "admin"
     }
   ],
