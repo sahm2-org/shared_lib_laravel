@@ -5,8 +5,48 @@ namespace Saham\SharedLibs\Models\Passport;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Laravel\Passport\Database\Factories\ClientFactory;
+use Laravel\Passport\Passport;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
+/**
+ * @property mixed $id 13 occurrences
+ * @property \Illuminate\Support\Carbon|null $created_at 13 occurrences
+ * @property string|null $name 13 occurrences
+ * @property bool|null $password_client 13 occurrences
+ * @property bool|null $personal_access_client 13 occurrences
+ * @property string|null $provider 13 occurrences
+ * @property string|null $redirect 13 occurrences
+ * @property bool|null $revoked 13 occurrences
+ * @property string|null $secret 13 occurrences
+ * @property \Illuminate\Support\Carbon|null $updated_at 13 occurrences
+ * @property string|null $user_id 13 occurrences
+ * @property-read string|null $plain_secret
+ * @property-read \Saham\SharedLibs\Models\User|null $user
+ *
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client aggregate($function = null, $columns = [])
+ * @method static \Laravel\Passport\Database\Factories\ClientFactory factory($count = null, $state = [])
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client getConnection()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client insert(array $values)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client insertGetId(array $values, $sequence = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client newModelQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client newQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client query()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client raw($value = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereCreatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client wherePasswordClient($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client wherePersonalAccessClient($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereProvider($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereRedirect($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereRevoked($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereSecret($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereUpdatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereUserId($value)
+ *
+ * @mixin \Eloquent
+ */
 class Client extends BaseModel
 {
     use HasFactory;

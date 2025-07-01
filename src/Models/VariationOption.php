@@ -30,6 +30,14 @@ use Saham\SharedLibs\Traits\Translatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereTitleAr($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereTitleEn($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereVariationId($value)
+ * @property string|null $max 1 occurrences
+ * @property string|null $min 1 occurrences
+ * @property string|null $options 1 occurrences
+ * @property string|null $type 1 occurrences
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereMax($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereMin($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereOptions($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|VariationOption whereType($value)
  * @mixin \Eloquent
  */
 class VariationOption extends BaseModel

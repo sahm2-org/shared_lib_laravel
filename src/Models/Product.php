@@ -3,12 +3,11 @@
 namespace Saham\SharedLibs\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use MongoDB\Laravel\Relations\HasMany;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $avatar 992 occurrences
  * @property string|null $avatarURL 999 occurrences
@@ -34,6 +33,7 @@ use Saham\SharedLibs\Traits\Translatable;
  * @property-read \Saham\SharedLibs\Models\Menu|null $menu
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\ProductVariation> $variations
  * @property-read int|null $variations_count
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product availableOnly()
@@ -67,6 +67,7 @@ use Saham\SharedLibs\Traits\Translatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product whereTitleAr($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product whereTitleEn($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Product extends BaseModel
@@ -103,15 +104,15 @@ class Product extends BaseModel
 
         self::withoutEvents(function () use ($thing_name, $thing_price_from, $thing_price_to, $status_from): void {
             $this->push('changes', [
-                'price_from'  => $thing_price_from,
-                'price_to'    => $thing_price_to,
+                'price_from' => $thing_price_from,
+                'price_to' => $thing_price_to,
                 'status_from' => $status_from,
-                'status_to'   => 'pending',
-                'item'        => $thing_name,
+                'status_to' => 'pending',
+                'item' => $thing_name,
             ], false);
 
             $this->update([
-                'status'  => 'pending',
+                'status' => 'pending',
             ]);
         });
     }

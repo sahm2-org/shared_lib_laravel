@@ -5,6 +5,22 @@ namespace Saham\SharedLibs\Models\Passport;
 use Laravel\Passport\Passport;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
+/**
+ * 
+ *
+ * @property-read \Saham\SharedLibs\Models\Passport\Client|null $client
+ * @property-read mixed $id
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode aggregate($function = null, $columns = [])
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode getConnection()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode insert(array $values)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode insertGetId(array $values, $sequence = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode newModelQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode newQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode query()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode raw($value = null)
+ * @mixin \Eloquent
+ */
 class AuthCode extends BaseModel
 {
     /**

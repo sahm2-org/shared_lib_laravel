@@ -110,66 +110,66 @@ class Token extends BaseModel
      */
     public function user(): BelongsTo
     {
-        $provider = $this->client->provider ?: config('auth.guards.api.provider');
+        $provider = $this?->client?->provider ?: config('auth.guards.api.provider');
 
         $model = config('auth.providers.'.$provider.'.model');
 
         return $this->belongsTo($model, 'user_id', (new $model)->getAuthIdentifierName());
     }
 
-    /**
-     * Determine if the token has a given scope.
-     *
-     * @param  string  $scope
-     */
-    public function can($scope): bool
-    {
-        if (in_array('*', $this->scopes, true)) {
-            return true;
-        }
+    // /**
+    //  * Determine if the token has a given scope.
+    //  *
+    //  * @param  string  $scope
+    //  */
+    // public function can($scope): bool
+    // {
+    //     if (in_array('*', $this->scopes, true)) {
+    //         return true;
+    //     }
+    //
+    //     $scopes = Passport::$withInheritedScopes
+    //         ? $this->resolveInheritedScopes($scope)
+    //         : [$scope];
+    //
+    //     foreach ($scopes as $scope) {
+    //         if (array_key_exists($scope, array_flip($this->scopes))) {
+    //             return true;
+    //         }
+    //     }
+    //
+    //     return false;
+    // }
 
-        $scopes = Passport::$withInheritedScopes
-            ? $this->resolveInheritedScopes($scope)
-            : [$scope];
+    // /**
+    //  * Resolve all possible scopes.
+    //  *
+    //  * @param  string  $scope
+    //  */
+    // protected function resolveInheritedScopes($scope): mixed
+    // {
+    //     $parts = explode(':', $scope);
+    //
+    //     $partsCount = count($parts);
+    //
+    //     $scopes = [];
+    //
+    //     for ($i = 1; $i <= $partsCount; $i++) {
+    //         $scopes[] = implode(':', array_slice($parts, 0, $i));
+    //     }
+    //
+    //     return $scopes;
+    // }
 
-        foreach ($scopes as $scope) {
-            if (array_key_exists($scope, array_flip($this->scopes))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Resolve all possible scopes.
-     *
-     * @param  string  $scope
-     */
-    protected function resolveInheritedScopes($scope): mixed
-    {
-        $parts = explode(':', $scope);
-
-        $partsCount = count($parts);
-
-        $scopes = [];
-
-        for ($i = 1; $i <= $partsCount; $i++) {
-            $scopes[] = implode(':', array_slice($parts, 0, $i));
-        }
-
-        return $scopes;
-    }
-
-    /**
-     * Determine if the token is missing a given scope.
-     *
-     * @param  string  $scope
-     */
-    public function cant($scope): bool
-    {
-        return ! $this->can($scope);
-    }
+    // /**
+    //  * Determine if the token is missing a given scope.
+    //  *
+    //  * @param  string  $scope
+    //  */
+    // public function cant($scope): bool
+    // {
+    //     return ! $this->can($scope);
+    // }
 
     /**
      * Revoke the token instance.
