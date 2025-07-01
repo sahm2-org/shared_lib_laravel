@@ -163,6 +163,8 @@ use Saham\SharedLibs\Traits\HasStateMachines;
  * @method static Builder<static>|Order whereUserAllowedPaymentWallet($value)
  * @method static Builder<static>|Order whereUserId($value)
  * @method static Builder<static>|Order whereVat($value)
+ * @property bool|null $is_fake 1 occurrences
+ * @method static Builder<static>|Order whereIsFake($value)
  * @mixin \Eloquent
  */
 class Order extends BaseModel

@@ -2,19 +2,26 @@
 
 namespace Saham\SharedLibs\Models\Passport;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Laravel\Passport\Client as PassportClient;
-use Illuminate\Support\Str;
+use Laravel\Passport\Database\Factories\ClientFactory;
 use Laravel\Passport\Passport;
-use Laravel\Passport\Saham\SharedLibs\Database\Factories\ClientFactory;
+use Laravel\Passport\ResolvesInheritedScopes;
 use MongoDB\Laravel\Eloquent\Model;
 
 class Client extends Model
 {
+    protected $connection = 'authmongodb';
+
+    /** @use \Illuminate\Database\Eloquent\Factories\HasFactory<\Laravel\Passport\Database\Factories\ClientFactory> */
     use HasFactory;
+
+    use HasUuids;
+    use ResolvesInheritedScopes;
 
     /**
      * The database table used by the model.
@@ -22,19 +29,18 @@ class Client extends Model
      * @var string
      */
     protected $table = 'oauth_clients';
-    protected $connection = 'authmongodb';
 
     /**
      * The guarded attributes on the model.
      *
-     * @var array
+     * @var array<string>|bool
      */
-    protected $guarded = [];
+    protected $guarded = false;
 
     /**
      * The attributes excluded from the model's JSON form.
      *
-     * @var array
+     * @var array<string>
      */
     protected $hidden = [
         'secret',
@@ -43,50 +49,64 @@ class Client extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
-        'grant_types'            => 'array',
+        'grant_types' => 'array',
+        'scopes' => 'array',
+        'redirect_uris' => 'array',
         'personal_access_client' => 'bool',
-        'password_client'        => 'bool',
-        'revoked'                => 'bool',
+        'password_client' => 'bool',
+        'revoked' => 'bool',
     ];
 
     /**
      * The temporary plain-text client secret.
      *
-     * @var string|null
+     * This is only available during the request that created the client.
      */
-    protected $plainSecret;
+    public ?string $plainSecret = null;
 
     /**
-     * Bootstrap the model and its traits.
+     * Initialize the trait.
      */
-    public static function boot(): void
+    public function initializeHasUniqueStringIds(): void
     {
-        parent::boot();
-
-        static::creating(static function ($model): void {
-            if (config('passport.client_uuids')) {
-                $model->{$model->getKeyName()} = $model->{$model->getKeyName()} ?: (string) Str::orderedUuid();
-            }
-        });
+        $this->usesUniqueIds = Passport::$clientUuids;
     }
 
     /**
      * Get the user that the client belongs to.
+     *
+     * @deprecated Use owner()
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\Illuminate\Foundation\Auth\User, $this>
      */
     public function user(): BelongsTo
     {
         $provider = $this->provider ?: config('auth.guards.api.provider');
 
         return $this->belongsTo(
-            config("auth.providers.{$provider}.model")
+            config("auth.providers.$provider.model")
         );
     }
 
     /**
+     * Get the owner of the registered client.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<\Illuminate\Foundation\Auth\User, $this>
+     */
+    public function owner(): MorphTo
+    {
+        return $this->morphTo('owner');
+    }
+
+    /**
      * Get all of the authentication codes for the client.
+     *
+     * @deprecated Will be removed in a future Laravel version.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\Laravel\Passport\AuthCode, $this>
      */
     public function authCodes(): HasMany
     {
@@ -95,6 +115,8 @@ class Client extends Model
 
     /**
      * Get all of the tokens that belong to the client.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\Laravel\Passport\Token, $this>
      */
     public function tokens(): HasMany
     {
@@ -102,31 +124,49 @@ class Client extends Model
     }
 
     /**
-     * The temporary non-hashed client secret.
-     *
-     * This is only available once during the request that created the client.
+     * Interact with the client's secret.
      */
-    public function getPlainSecretAttribute(): ?string
+    protected function secret(): Attribute
     {
-        return $this->plainSecret;
+        return Attribute::make(
+            set: function (?string $value): ?string {
+                $this->plainSecret = $value;
+
+                return $this->castAttributeAsHashedString('secret', $value);
+            },
+        );
     }
 
     /**
-     * Set the value of the secret attribute.
-     *
-     * @param string|null $value
+     * Interact with the client's redirect URIs.
      */
-    public function setSecretAttribute($value): void
+    protected function redirectUris(): Attribute
     {
-        $this->plainSecret = $value;
+        return Attribute::make(
+            get: fn (?string $value, array $attributes): array => match (true) {
+                ! empty($value) => $this->fromJson($value),
+                ! empty($attributes['redirect']) => explode(',', $attributes['redirect']),
+                default => [],
+            },
+        );
+    }
 
-        if (is_null($value) || !Passport::$hashesClientSecrets) {
-            $this->attributes['secret'] = $value;
-
-            return ;
-        }
-
-        $this->attributes['secret'] = password_hash($value, PASSWORD_BCRYPT);
+    /**
+     * Interact with the client's grant types.
+     */
+    protected function grantTypes(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $value): array => isset($value) ? $this->fromJson($value) : array_keys(array_filter([
+                'authorization_code' => ! empty($this->redirect_uris),
+                'client_credentials' => $this->confidential() && $this->firstParty(),
+                'implicit' => ! empty($this->redirect_uris),
+                'password' => $this->password_client,
+                'personal_access' => $this->personal_access_client && $this->confidential(),
+                'refresh_token' => true,
+                'urn:ietf:params:oauth:grant-type:device_code' => true,
+            ])),
+        );
     }
 
     /**
@@ -134,15 +174,38 @@ class Client extends Model
      */
     public function firstParty(): bool
     {
-        return $this->personal_access_client || $this->password_client;
+        if (array_key_exists('user_id', $this->attributes)) {
+            return empty($this->user_id);
+        }
+
+        return empty($this->owner_id);
     }
 
     /**
      * Determine if the client should skip the authorization prompt.
+     *
+     * @param  \Laravel\Passport\Scope[]  $scopes
      */
-    public function skipsAuthorization(): bool
+    public function skipsAuthorization(Authenticatable $user, array $scopes): bool
     {
         return false;
+    }
+
+    /**
+     * Determine if the client has the given grant type.
+     */
+    public function hasGrantType(string $grantType): bool
+    {
+
+        return in_array($grantType, $this->grant_types);
+    }
+
+    /**
+     * Determine whether the client has the given scope.
+     */
+    public function hasScope(string $scope): bool
+    {
+        return ! isset($this->attributes['scopes']) || $this->scopeExistsIn($scope, $this->scopes);
     }
 
     /**
@@ -150,23 +213,7 @@ class Client extends Model
      */
     public function confidential(): bool
     {
-        return $this->secret !== '' && $this->secret !== null;
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     */
-    public function getKeyType(): string
-    {
-        return Passport::clientUuids() ? 'string' : $this->keyType;
-    }
-
-    /**
-     * Get the value indicating whether the IDs are incrementing.
-     */
-    public function getIncrementing(): bool
-    {
-        return Passport::clientUuids() ? false : $this->incrementing;
+        return ! empty($this->secret);
     }
 
     /**
@@ -174,13 +221,15 @@ class Client extends Model
      */
     public function getConnectionName(): ?string
     {
-        return   $this->connection;
+        return $this->connection ?? config('passport.connection');
     }
 
     /**
      * Create a new factory instance for the model.
+     *
+     * @return \Laravel\Passport\Database\Factories\ClientFactory
      */
-    public static function newFactory(): Factory
+    protected static function newFactory(): Factory
     {
         return ClientFactory::new();
     }
