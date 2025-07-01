@@ -3,14 +3,10 @@
 namespace Saham\SharedLibs\Models\Passport;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Laravel\Passport\Token as PassportToken;
 use Laravel\Passport\Passport;
-use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
+use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $client_id 1000 occurrences
  * @property string|null $created_at 1000 occurrences
@@ -21,6 +17,7 @@ use MongoDB\Laravel\Eloquent\Model as Eloquent;
  * @property string|null $user_id 1000 occurrences
  * @property-read \Saham\SharedLibs\Models\Passport\Client|null $client
  * @property-read \Saham\SharedLibs\Models\User|null $user
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token getConnection()
@@ -38,9 +35,10 @@ use MongoDB\Laravel\Eloquent\Model as Eloquent;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token whereScopes($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token whereUpdatedAt($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token whereUserId($value)
+ *
  * @mixin \Eloquent
  */
-class Token extends Eloquent
+class Token extends BaseModel
 {
     /**
      * The database table used by the model.
@@ -48,6 +46,7 @@ class Token extends Eloquent
      * @var string
      */
     protected $table = 'oauth_access_tokens';
+
     protected $connection = 'authmongodb';
 
     /**
@@ -77,7 +76,7 @@ class Token extends Eloquent
      * @var array
      */
     protected $casts = [
-        'scopes'  => 'array',
+        'scopes' => 'array',
         'revoked' => 'bool',
         'expires_at' => 'datetime',
     ];
@@ -111,17 +110,17 @@ class Token extends Eloquent
      */
     public function user(): BelongsTo
     {
-        $provider = config('auth.guards.api.provider');
+        $provider = $this->client->provider ?: config('auth.guards.api.provider');
 
-        $model = config('auth.providers.' . $provider . '.model');
+        $model = config('auth.providers.'.$provider.'.model');
 
-        return $this->belongsTo($model, 'user_id', (new $model())->getKeyName());
+        return $this->belongsTo($model, 'user_id', (new $model)->getAuthIdentifierName());
     }
 
     /**
      * Determine if the token has a given scope.
      *
-     * @param string $scope
+     * @param  string  $scope
      */
     public function can($scope): bool
     {
@@ -145,7 +144,7 @@ class Token extends Eloquent
     /**
      * Resolve all possible scopes.
      *
-     * @param string $scope
+     * @param  string  $scope
      */
     protected function resolveInheritedScopes($scope): mixed
     {
@@ -155,7 +154,7 @@ class Token extends Eloquent
 
         $scopes = [];
 
-        for ($i = 1; $i <= $partsCount; ++$i) {
+        for ($i = 1; $i <= $partsCount; $i++) {
             $scopes[] = implode(':', array_slice($parts, 0, $i));
         }
 
@@ -165,11 +164,11 @@ class Token extends Eloquent
     /**
      * Determine if the token is missing a given scope.
      *
-     * @param string $scope
+     * @param  string  $scope
      */
     public function cant($scope): bool
     {
-        return !$this->can($scope);
+        return ! $this->can($scope);
     }
 
     /**
@@ -193,6 +192,6 @@ class Token extends Eloquent
      */
     public function getConnectionName(): ?string
     {
-        return   $this->connection;
+        return $this->connection;
     }
 }

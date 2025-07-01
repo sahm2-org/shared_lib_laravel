@@ -4,18 +4,15 @@ namespace Saham\SharedLibs\Models\Passport;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Passport\Passport;
-use Laravel\Passport\RefreshToken as PassportRefreshToken;
-use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
+use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $access_token_id 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $expires_at 1000 occurrences
  * @property bool|null $revoked 1000 occurrences
  * @property-read \Saham\SharedLibs\Models\Passport\Token|null $accessToken
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|RefreshToken addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|RefreshToken aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|RefreshToken getConnection()
@@ -29,9 +26,10 @@ use MongoDB\Laravel\Eloquent\Model as Eloquent;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|RefreshToken whereExpiresAt($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|RefreshToken whereId($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|RefreshToken whereRevoked($value)
+ *
  * @mixin \Eloquent
  */
-class RefreshToken extends Eloquent
+class RefreshToken extends BaseModel
 {
     /**
      * The database table used by the model.
@@ -39,6 +37,7 @@ class RefreshToken extends Eloquent
      * @var string
      */
     protected $table = 'oauth_refresh_tokens';
+
     protected $connection = 'authmongodb';
 
     /**
@@ -69,7 +68,7 @@ class RefreshToken extends Eloquent
      */
     protected $casts = [
         'revoked' => 'bool',
-    'expires_at' => 'datetime',
+        'expires_at' => 'datetime',
     ];
 
     /**
@@ -117,6 +116,6 @@ class RefreshToken extends Eloquent
      */
     public function getConnectionName(): ?string
     {
-        return   $this->connection;
+        return $this->connection;
     }
 }
