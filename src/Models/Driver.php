@@ -143,14 +143,9 @@ class Driver extends Authenticatable
 
     protected $guarded = [];
     protected $casts   = [
-        'services'       => 'array',
-        'location'       => 'array',
-        'latitude'       => 'string',
-        'longitude'      => 'string',
         'has_logisti_id' => 'boolean',
         'created_at'     => 'datetime',
         'updated_at'     => 'datetime',
-        'deleted_at'     => 'datetime',
     ];
 
     protected $attributes = [
