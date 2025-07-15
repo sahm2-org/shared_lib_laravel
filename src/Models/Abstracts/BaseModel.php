@@ -10,9 +10,8 @@ use Saham\SharedLibs\Traits\Trackable;
 use Illuminate\Support\Facades\DB;
 
 /**
- * 
+ * @property mixed $id
  *
- * @property-read mixed $id
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel getConnection()
@@ -22,6 +21,7 @@ use Illuminate\Support\Facades\DB;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel newQuery()
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel query()
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel raw($value = null)
+ *
  * @mixin \Eloquent
  */
 class BaseModel extends Model
@@ -56,6 +56,13 @@ class BaseModel extends Model
             return $collection->aggregate($aggr);
         })->first()?->toArray()['count'] ?? 0;
 
+        if (!request()->has('per_page')) {
+            request()->merge(['per_page' => 10]);
+        } elseif (!is_numeric(request()->per_page) || (int) request()->per_page > 50) {
+            // max per_page is 50
+            request()->merge(['per_page' => 50]);
+        }
+
         $currentPage = Paginator::resolveCurrentPage();
         $perPage     = (int) (request()->per_page && request()->per_page <= $total ? request()->per_page : $total);
 
@@ -73,7 +80,7 @@ class BaseModel extends Model
         });
 
         $resultsCollection = new Collection($results->all());
-        $r                = new Paginator($resultsCollection, $total, $perPage, $currentPage);
+        $r                 = new Paginator($resultsCollection, $total, $perPage, $currentPage);
 
         return $r->setPath(request()->url())->withQueryString();
     }
