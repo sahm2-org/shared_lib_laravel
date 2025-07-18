@@ -3,6 +3,8 @@
 namespace Saham\SharedLibs\Providers;
 
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider as BasePasswordResetServiceProvider;
+use Illuminate\Auth\Passwords\DatabaseTokenRepository;
+use Illuminate\Auth\Passwords\PasswordBrokerManager;
 
 class PasswordResetServiceProvider extends BasePasswordResetServiceProvider
 {
