@@ -5,8 +5,6 @@ namespace Saham\SharedLibs\Models;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property-read mixed $id
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|NotificationSchedule addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|NotificationSchedule aggregate($function = null, $columns = [])

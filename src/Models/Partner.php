@@ -17,8 +17,6 @@ use Saham\SharedLibs\Traits\Translatable;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 
 /**
- * 
- *
  * @property mixed $id 824 occurrences
  * @property string|null $account_status 192 occurrences
  * @property string|null $address 585 occurrences

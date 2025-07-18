@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
  * @property string|null $customComissionForShamFromPartnerInPercentage 1000 occurrences

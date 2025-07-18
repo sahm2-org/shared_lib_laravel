@@ -7,8 +7,6 @@ use Laravel\Passport\Passport;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $access_token_id 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $expires_at 1000 occurrences

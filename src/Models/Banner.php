@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $banner_date_range 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
@@ -43,6 +41,11 @@ use MongoDB\Laravel\Relations\BelongsTo;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Banner whereStoryURL($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Banner whereUpdatedAt($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Banner whereViewOnly($value)
+ * @property string|null $thump 1 occurrences
+ * @property string|null $view_location 1 occurrences
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Banner whereImage($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Banner whereThump($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Banner whereViewLocation($value)
  * @mixin \Eloquent
  */
 class Banner extends BaseModel

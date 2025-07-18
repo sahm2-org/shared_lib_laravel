@@ -8,8 +8,6 @@ use MongoDB\Laravel\Eloquent\SoftDeletes;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 18 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 2 occurrences
  * @property string|null $currency 2 occurrences

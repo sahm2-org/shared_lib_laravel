@@ -16,8 +16,6 @@ use Spatie\Permission\Guard;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 
 /**
- * 
- *
  * @property mixed $id 22 occurrences
  * @property string|null $administrator_ids 18 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 22 occurrences

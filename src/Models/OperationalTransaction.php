@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property mixed $id 4 occurrences
  * @property float|null $amount 4 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 4 occurrences

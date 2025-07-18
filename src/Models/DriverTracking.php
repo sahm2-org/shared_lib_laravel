@@ -8,8 +8,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property-read \Saham\SharedLibs\Models\Driver|null $driver
  * @property-read mixed $id
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
@@ -21,6 +19,15 @@ use MongoDB\Laravel\Relations\BelongsTo;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking newQuery()
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking query()
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking raw($value = null)
+ * @property \Illuminate\Support\Carbon|null $created_at 292 occurrences
+ * @property string|null $driver_id 292 occurrences
+ * @property string|null $logs 292 occurrences
+ * @property \Illuminate\Support\Carbon|null $updated_at 292 occurrences
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking whereCreatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking whereDriverId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking whereId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking whereLogs($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|DriverTracking whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class DriverTracking extends BaseModel

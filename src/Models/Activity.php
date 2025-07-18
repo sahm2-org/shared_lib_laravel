@@ -5,8 +5,6 @@ namespace Saham\SharedLibs\Models;
 use MongoDB\Laravel\Eloquent\Model;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $causer 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
@@ -38,6 +36,8 @@ use MongoDB\Laravel\Eloquent\Model;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Activity whereRelatedType($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Activity whereSubject($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Activity whereUpdatedAt($value)
+ * @property string|null $properties 1 occurrences
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Activity whereProperties($value)
  * @mixin \Eloquent
  */
 class Activity extends Model

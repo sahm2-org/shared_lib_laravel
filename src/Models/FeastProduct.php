@@ -5,8 +5,6 @@ namespace Saham\SharedLibs\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
- *
  * @property mixed $id 64 occurrences
  * @property string|null $avatar 64 occurrences
  * @property string|null $avatarURL 64 occurrences
@@ -60,6 +58,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|FeastProduct whereTitleAr($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|FeastProduct whereTitleEn($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|FeastProduct whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Driver> $ratings
+ * @property-read int|null $ratings_count
  * @mixin \Eloquent
  */
 class FeastProduct extends Product

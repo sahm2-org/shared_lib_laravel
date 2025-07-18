@@ -8,8 +8,6 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use MongoDB\Laravel\Relations\EmbedsMany;
 
 /**
- * 
- *
  * @property mixed $id 54 occurrences
  * @property string|null $feast_id 54 occurrences
  * @property string|null $feast_product_id 54 occurrences

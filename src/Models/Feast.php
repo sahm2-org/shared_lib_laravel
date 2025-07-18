@@ -13,8 +13,6 @@ use Saham\SharedLibs\Models\Enums\FeastStatus;
 use MongoDB\Laravel\Eloquent\Builder;
 
 /**
- * 
- *
  * @property mixed $id 54 occurrences
  * @property bool|null $cash_paid 54 occurrences
  * @property string|null $coupon 39 occurrences

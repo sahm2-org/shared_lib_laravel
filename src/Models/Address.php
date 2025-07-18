@@ -9,8 +9,6 @@ use Saham\SharedLibs\Traits\Translatable;
 use Spatie\Geocoder\Facades\Geocoder;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $adress_name 140 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences

@@ -22,7 +22,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
  * @property string|null $user_id 13 occurrences
  * @property-read string|null $plain_secret
  * @property-read \Saham\SharedLibs\Models\User|null $user
- *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client aggregate($function = null, $columns = [])
  * @method static \Laravel\Passport\Database\Factories\ClientFactory factory($count = null, $state = [])
@@ -44,7 +43,10 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereSecret($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereUpdatedAt($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Client whereUserId($value)
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\AuthCode> $authCodes
+ * @property-read int|null $auth_codes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token> $tokens
+ * @property-read int|null $tokens_count
  * @mixin \Eloquent
  */
 class Client extends BaseModel

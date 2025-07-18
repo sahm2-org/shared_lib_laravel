@@ -5,8 +5,6 @@ namespace Saham\SharedLibs\Models;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property int|null $__v 3 occurrences
  * @property mixed $id 3 occurrences
  * @property string|null $default 3 occurrences

@@ -9,8 +9,6 @@ use MongoDB\Laravel\Relations\HasMany;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 5 occurrences
  * @property string|null $color_code 5 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 5 occurrences

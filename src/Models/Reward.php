@@ -12,8 +12,6 @@ use MongoDB\Laravel\Relations\HasMany;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\DriverReward> $driverReward
  * @property-read int|null $driver_reward_count
  * @property-read mixed $id

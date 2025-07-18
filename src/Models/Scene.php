@@ -6,8 +6,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Eloquent\SoftDeletes;
 
 /**
- * 
- *
  * @property-read mixed $id
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Scene addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Scene aggregate($function = null, $columns = [])

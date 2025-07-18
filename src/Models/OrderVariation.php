@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property-read mixed $id
  * @property-read \Saham\SharedLibs\Models\ProductVariation|null $productVariation
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OrderVariation addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)

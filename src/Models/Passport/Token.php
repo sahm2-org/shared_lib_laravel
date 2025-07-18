@@ -17,7 +17,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
  * @property string|null $user_id 1000 occurrences
  * @property-read \Saham\SharedLibs\Models\Passport\Client|null $client
  * @property-read \Saham\SharedLibs\Models\User|null $user
- *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token getConnection()
@@ -35,7 +34,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token whereScopes($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token whereUpdatedAt($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Token whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class Token extends BaseModel

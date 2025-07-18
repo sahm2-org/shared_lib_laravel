@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property mixed $id 17 occurrences
  * @property string|null $amount 17 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 17 occurrences

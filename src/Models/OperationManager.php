@@ -10,8 +10,6 @@ use Laravel\Passport\HasApiTokens;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 
 /**
- * 
- *
  * @property mixed $id 1 occurrences
  * @property string|null $color_code 1 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1 occurrences

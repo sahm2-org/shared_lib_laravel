@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 4 occurrences
  * @property string|null $name_ar 4 occurrences
  * @property string|null $name_en 4 occurrences

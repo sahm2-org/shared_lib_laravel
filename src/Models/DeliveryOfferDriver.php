@@ -8,8 +8,6 @@ use MongoDB\Laravel\Eloquent\SoftDeletes;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property-read \Saham\SharedLibs\Models\DeliveryOffer|null $deliveryOffer
  * @property-read \Saham\SharedLibs\Models\Driver|null $driver
  * @property-read mixed $id

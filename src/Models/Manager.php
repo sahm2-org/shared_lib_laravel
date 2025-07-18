@@ -12,8 +12,6 @@ use MongoDB\Laravel\Relations\HasMany;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $business_hours 924 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences

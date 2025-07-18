@@ -9,8 +9,6 @@ use MongoDB\Laravel\Relations\EmbedsMany;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 142 occurrences
  * @property string|null $max 142 occurrences
  * @property string|null $min 142 occurrences

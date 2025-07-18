@@ -7,8 +7,6 @@ use MongoDB\Laravel\Eloquent\SoftDeletes;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property mixed $id 12 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 12 occurrences
  * @property string|null $from 12 occurrences

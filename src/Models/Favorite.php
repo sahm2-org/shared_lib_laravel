@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $store_id 1000 occurrences
  * @property string|null $user_id 1000 occurrences

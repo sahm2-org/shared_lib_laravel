@@ -10,8 +10,6 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * 
- *
  * @property mixed $id 55 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 55 occurrences
  * @property \Illuminate\Support\Carbon|null $deleted_at 7 occurrences

@@ -10,8 +10,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Eloquent\SoftDeletes;
 
 /**
- * 
- *
  * @property mixed $id 79 occurrences
  * @property float|null $amount 79 occurrences
  * @property string|null $code 79 occurrences

@@ -21,8 +21,6 @@ use Saham\SharedLibs\Traits\HasWalletForUser;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $allowed_payment_methods 951 occurrences
  * @property string|null $bank_iban 16 occurrences

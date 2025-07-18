@@ -11,8 +11,6 @@ use Saham\SharedLibs\Traits\Translatable;
 
 
 /**
- * 
- *
  * @property-read mixed $id
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Zone addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Zone aggregate($function = null, $columns = [])

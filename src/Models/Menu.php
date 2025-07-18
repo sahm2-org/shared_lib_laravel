@@ -11,8 +11,6 @@ use MongoDB\Laravel\Relations\HasOne;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $deleted_at 711 occurrences

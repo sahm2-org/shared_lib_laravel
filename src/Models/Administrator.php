@@ -17,8 +17,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 
 /**
- * 
- *
  * @property mixed $id 10 occurrences
  * @property string|null $avatar 2 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 8 occurrences
@@ -73,6 +71,12 @@ use MongoDB\Laravel\Auth\User as Authenticatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Administrator whereRole($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Administrator whereRoleIds($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Administrator whereUpdatedAt($value)
+ * @property string|null $code 4 occurrences
+ * @property string|null $password_confirmation 4 occurrences
+ * @property string|null $type 4 occurrences
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Administrator whereCode($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Administrator wherePasswordConfirmation($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Administrator whereType($value)
  * @mixin \Eloquent
  */
 class Administrator extends Authenticatable implements AuthorizableContract

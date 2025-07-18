@@ -12,8 +12,6 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use MongoDB\Laravel\Relations\HasMany;
 
 /**
- * 
- *
  * @property-read mixed $id
  * @property-read \Saham\SharedLibs\Models\Reward|null $reward
  * @property-read \Saham\SharedLibs\Models\User|null $user

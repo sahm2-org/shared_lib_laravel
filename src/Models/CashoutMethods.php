@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use MongoDB\Laravel\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property mixed $id 34 occurrences
  * @property string|null $bank_account 1 occurrences
  * @property string|null $bank_account_holder_name 1 occurrences

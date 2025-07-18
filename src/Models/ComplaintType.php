@@ -7,8 +7,6 @@ use Saham\SharedLibs\Models\Abstracts\BaseModel;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 17 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 17 occurrences
  * @property string|null $name_ar 17 occurrences

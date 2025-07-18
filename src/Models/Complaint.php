@@ -8,8 +8,6 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property string|null $comments 335 occurrences
  * @property string|null $complaint_type_id 1000 occurrences

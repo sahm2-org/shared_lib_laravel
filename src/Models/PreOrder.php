@@ -8,8 +8,6 @@ use MongoDB\Laravel\Relations\HasMany;
 use Saham\SharedLibs\Traits\HasNotes;
 
 /**
- * 
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\OrderDetail> $details
  * @property-read int|null $details_count
  * @property-read \Saham\SharedLibs\Models\Driver|null $driver

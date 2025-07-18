@@ -8,8 +8,6 @@ use MongoDB\Laravel\Relations\HasMany;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * 
- *
  * @property int|null $__v 4 occurrences
  * @property mixed $id 4 occurrences
  * @property int|null $adult_max 4 occurrences

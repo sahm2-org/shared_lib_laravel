@@ -33,7 +33,6 @@ use Saham\SharedLibs\Traits\Translatable;
  * @property-read \Saham\SharedLibs\Models\Menu|null $menu
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\ProductVariation> $variations
  * @property-read int|null $variations_count
- *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product availableOnly()
@@ -67,7 +66,8 @@ use Saham\SharedLibs\Traits\Translatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product whereTitleAr($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product whereTitleEn($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Product whereUpdatedAt($value)
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Driver> $ratings
+ * @property-read int|null $ratings_count
  * @mixin \Eloquent
  */
 class Product extends BaseModel

@@ -12,8 +12,6 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use MongoDB\Laravel\Relations\HasMany;
 
 /**
- * 
- *
  * @property mixed $id 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
  * @property \Illuminate\Support\Carbon|null $updated_at 1000 occurrences

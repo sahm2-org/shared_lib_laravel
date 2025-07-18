@@ -6,8 +6,6 @@ use Laravel\Passport\Passport;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
 
 /**
- * 
- *
  * @property-read \Saham\SharedLibs\Models\Passport\Client|null $client
  * @property-read mixed $id
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|AuthCode addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)

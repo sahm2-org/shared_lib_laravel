@@ -8,8 +8,6 @@ use MongoDB\Laravel\Relations\BelongsTo;
 use Saham\SharedLibs\Traits\HasNotes;
 
 /**
- * 
- *
  * @property mixed $id 8 occurrences
  * @property \Illuminate\Support\Carbon|null $created_at 8 occurrences
  * @property \Illuminate\Support\Carbon|null $delivered_at 8 occurrences

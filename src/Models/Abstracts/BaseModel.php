@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * @property mixed $id
- *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel getConnection()
@@ -21,7 +20,6 @@ use Illuminate\Support\Facades\DB;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel newQuery()
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel query()
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|BaseModel raw($value = null)
- *
  * @mixin \Eloquent
  */
 class BaseModel extends Model

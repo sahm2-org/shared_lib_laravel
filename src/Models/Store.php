@@ -86,7 +86,6 @@ use Saham\SharedLibs\Traits\Translatable;
  * @property int|null                                                                                   $stories_count
  * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerTransaction> $transactions
  * @property int|null                                                                                   $transactions_count
- *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store     addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store     aggregate($function = null, $columns = [])
  * @method static \Saham\SharedLibs\Database\Factories\StoreFactory   factory($count = null, $state = [])
@@ -155,21 +154,18 @@ use Saham\SharedLibs\Traits\Translatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store     withCommon(\Illuminate\Http\Request $request)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Store withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Store withoutTrashed()
- *
  * @property string|null $0 1 occurrences
  * @property string|null $1 1 occurrences
  * @property string|null $2 1 occurrences
  * @property string|null $3 1 occurrences
  * @property string|null $4 1 occurrences
  * @property string|null $5 1 occurrences
- *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where0($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where1($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where2($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where3($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where4($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where5($value)
- *
  * @mixin \Eloquent
  */
 class Store extends BaseModel

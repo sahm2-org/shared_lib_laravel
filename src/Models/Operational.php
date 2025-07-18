@@ -15,8 +15,6 @@ use Saham\SharedLibs\Traits\Translatable;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 
 /**
- * 
- *
  * @property mixed $id 7 occurrences
  * @property bool|null $auto_assign 4 occurrences
  * @property string|null $avatar 7 occurrences
@@ -75,6 +73,8 @@ use MongoDB\Laravel\Auth\User as Authenticatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Operational whereSystemDriverCommissionPercentage($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Operational whereTimeToAssign($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Operational whereUpdatedAt($value)
+ * @property float|null $wallet 1 occurrences
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Operational whereWallet($value)
  * @mixin \Eloquent
  */
 class Operational extends Authenticatable
