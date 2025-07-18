@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Passport\Database\Factories;
+namespace Saham\SharedLibs\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -27,13 +27,13 @@ class ClientFactory extends Factory
     public function definition()
     {
         return $this->ensurePrimaryKeyIsSet([
-            'user_id' => null,
-            'name' => $this->faker->company(),
-            'secret' => Str::random(40),
-            'redirect' => $this->faker->url(),
+            'user_id'                => null,
+            'name'                   => $this->faker->company(),
+            'secret'                 => Str::random(40),
+            'redirect'               => $this->faker->url(),
             'personal_access_client' => false,
-            'password_client' => false,
-            'revoked' => false,
+            'password_client'        => false,
+            'revoked'                => false,
         ]);
     }
 
@@ -45,7 +45,7 @@ class ClientFactory extends Factory
     protected function ensurePrimaryKeyIsSet(array $data)
     {
         if (Passport::clientUuids()) {
-            $keyName = (new $this->model)->getKeyName();
+            $keyName = (new $this->model())->getKeyName();
 
             $data[$keyName] = (string) Str::orderedUuid();
         }
@@ -62,7 +62,7 @@ class ClientFactory extends Factory
     {
         return $this->state([
             'personal_access_client' => false,
-            'password_client' => true,
+            'password_client'        => true,
         ]);
     }
 
@@ -75,7 +75,7 @@ class ClientFactory extends Factory
     {
         return $this->state([
             'personal_access_client' => false,
-            'password_client' => false,
+            'password_client'        => false,
         ]);
     }
 }
