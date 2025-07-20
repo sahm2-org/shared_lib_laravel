@@ -4,7 +4,6 @@ namespace Saham\SharedLibs\Models;
 
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Saham\SharedLibs\Models\Enums\OrderStatus;
@@ -15,6 +14,7 @@ use Saham\SharedLibs\Traits\HasTransaction;
 use Saham\SharedLibs\Traits\HasWallet;
 use Saham\SharedLibs\Traits\Translatable;
 use MongoDB\Laravel\Auth\User as Authenticatable;
+use Saham\SharedLibs\Traits\Notifiable;
 
 /**
  * @property string|null                                                                                                  $ID                    167 occurrences
@@ -81,6 +81,7 @@ use MongoDB\Laravel\Auth\User as Authenticatable;
  * @property int|null                                                                                                     $tokens_count
  * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\DriverTransaction>                    $transactions
  * @property int|null                                                                                                     $transactions_count
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver   addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver   aggregate($function = null, $columns = [])
  * @method static \Saham\SharedLibs\Database\Factories\DriverFactory factory($count = null, $state = [])
@@ -126,17 +127,19 @@ use MongoDB\Laravel\Auth\User as Authenticatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver   whereStatus($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver   whereUpdatedAt($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver   whereWallet($value)
- * @property string|null $carNumber 2 occurrences
- * @property string|null $carTypeId 2 occurrences
- * @property string|null $cityId 2 occurrences
- * @property string|null $dateOfBirth 2 occurrences
- * @property bool|null $has_logisti_id 2 occurrences
- * @property string|null $idNumber 2 occurrences
- * @property string|null $identityTypeId 2 occurrences
- * @property string|null $mobile 2 occurrences
- * @property string|null $regionId 2 occurrences
- * @property string|null $registrationDate 2 occurrences
+ *
+ * @property string|null $carNumber             2 occurrences
+ * @property string|null $carTypeId             2 occurrences
+ * @property string|null $cityId                2 occurrences
+ * @property string|null $dateOfBirth           2 occurrences
+ * @property bool|null   $has_logisti_id        2 occurrences
+ * @property string|null $idNumber              2 occurrences
+ * @property string|null $identityTypeId        2 occurrences
+ * @property string|null $mobile                2 occurrences
+ * @property string|null $regionId              2 occurrences
+ * @property string|null $registrationDate      2 occurrences
  * @property string|null $vehicleSequenceNumber 2 occurrences
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver whereCarNumber($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver whereCarTypeId($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver whereDateOfBirth($value)
@@ -146,6 +149,7 @@ use MongoDB\Laravel\Auth\User as Authenticatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver whereRegionId($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver whereRegistrationDate($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Driver whereVehicleSequenceNumber($value)
+ *
  * @mixin \Eloquent
  */
 class Driver extends Authenticatable

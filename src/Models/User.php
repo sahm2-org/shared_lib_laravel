@@ -7,9 +7,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use MongoDB\Laravel\Eloquent\Model as Eloquent;
 use MongoDB\Laravel\Query\Builder;
 use MongoDB\Laravel\Relations\HasMany;
 use MongoDB\Laravel\Relations\HasOne;
@@ -18,89 +16,92 @@ use Saham\SharedLibs\Traits\HasOTPGrant;
 use Saham\SharedLibs\Traits\HasPaymentTypes;
 use Saham\SharedLibs\Traits\HasTransaction;
 use Saham\SharedLibs\Traits\HasWalletForUser;
+use Saham\SharedLibs\Traits\Notifiable;
 use Saham\SharedLibs\Traits\Translatable;
 
 /**
- * @property mixed $id 1000 occurrences
- * @property string|null $allowed_payment_methods 951 occurrences
- * @property string|null $bank_iban 16 occurrences
- * @property string|null $bank_name 26 occurrences
- * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
- * @property string|null $cuisine_ids 999 occurrences
- * @property string|null $device_id 943 occurrences
- * @property string|null $device_type 943 occurrences
- * @property string|null $email 78 occurrences
- * @property string|null $full_name 119 occurrences
- * @property string|null $gender 86 occurrences
- * @property string|null $name 1 occurrences
- * @property string|null $notes_history 1 occurrences
- * @property string|null $notification_id 943 occurrences
- * @property string|null $os_version 943 occurrences
- * @property int|null $otp 1000 occurrences
- * @property string|null $password 10 occurrences
- * @property string|null $phone 1000 occurrences
- * @property string|null $referral_code 1000 occurrences
- * @property \Illuminate\Support\Carbon|null $updated_at 1000 occurrences
- * @property \Saham\SharedLibs\Models\Wallet|null $wallet 100 occurrences
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Address> $addresses
- * @property-read int|null $addresses_count
- * @property-read mixed $balance
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\CashoutMethods> $cashoutMethods
- * @property-read int|null $cashout_methods_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Client> $clients
- * @property-read int|null $clients_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Complaint> $complains
- * @property-read int|null $complains_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Deliver> $delivers
- * @property-read int|null $delivers_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Favorite> $favorites
- * @property-read int|null $favorites_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Feast> $feasts
- * @property-read int|null $feasts_count
- * @property-read mixed|null $payment_types
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Message> $messages
- * @property-read int|null $messages_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Saham\SharedLibs\Models\DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Order> $orders
- * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Rating> $ratings
- * @property-read int|null $ratings_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token> $tokens
- * @property-read int|null $tokens_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\UserTransaction> $transactions
- * @property-read int|null $transactions_count
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User aggregate($function = null, $columns = [])
+ * @property mixed                                                                                                        $id                      1000 occurrences
+ * @property string|null                                                                                                  $allowed_payment_methods 951 occurrences
+ * @property string|null                                                                                                  $bank_iban               16 occurrences
+ * @property string|null                                                                                                  $bank_name               26 occurrences
+ * @property \Illuminate\Support\Carbon|null                                                                              $created_at              1000 occurrences
+ * @property string|null                                                                                                  $cuisine_ids             999 occurrences
+ * @property string|null                                                                                                  $device_id               943 occurrences
+ * @property string|null                                                                                                  $device_type             943 occurrences
+ * @property string|null                                                                                                  $email                   78 occurrences
+ * @property string|null                                                                                                  $full_name               119 occurrences
+ * @property string|null                                                                                                  $gender                  86 occurrences
+ * @property string|null                                                                                                  $name                    1 occurrences
+ * @property string|null                                                                                                  $notes_history           1 occurrences
+ * @property string|null                                                                                                  $notification_id         943 occurrences
+ * @property string|null                                                                                                  $os_version              943 occurrences
+ * @property int|null                                                                                                     $otp                     1000 occurrences
+ * @property string|null                                                                                                  $password                10 occurrences
+ * @property string|null                                                                                                  $phone                   1000 occurrences
+ * @property string|null                                                                                                  $referral_code           1000 occurrences
+ * @property \Illuminate\Support\Carbon|null                                                                              $updated_at              1000 occurrences
+ * @property \Saham\SharedLibs\Models\Wallet|null                                                                         $wallet                  100 occurrences
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Address>                              $addresses
+ * @property int|null                                                                                                     $addresses_count
+ * @property mixed                                                                                                        $balance
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\CashoutMethods>                       $cashoutMethods
+ * @property int|null                                                                                                     $cashout_methods_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Client>                      $clients
+ * @property int|null                                                                                                     $clients_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Complaint>                            $complains
+ * @property int|null                                                                                                     $complains_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Deliver>                              $delivers
+ * @property int|null                                                                                                     $delivers_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Favorite>                             $favorites
+ * @property int|null                                                                                                     $favorites_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Feast>                                $feasts
+ * @property int|null                                                                                                     $feasts_count
+ * @property mixed|null                                                                                                   $payment_types
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Message>                              $messages
+ * @property int|null                                                                                                     $messages_count
+ * @property \Illuminate\Notifications\DatabaseNotificationCollection<int, \Saham\SharedLibs\Models\DatabaseNotification> $notifications
+ * @property int|null                                                                                                     $notifications_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Order>                                $orders
+ * @property int|null                                                                                                     $orders_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Rating>                               $ratings
+ * @property int|null                                                                                                     $ratings_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token>                       $tokens
+ * @property int|null                                                                                                     $tokens_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\UserTransaction>                      $transactions
+ * @property int|null                                                                                                     $transactions_count
+ *
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   aggregate($function = null, $columns = [])
  * @method static \Saham\SharedLibs\Database\Factories\UserFactory factory($count = null, $state = [])
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User getConnection()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User insert(array $values)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User insertGetId(array $values, $sequence = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User newModelQuery()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User newQuery()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User query()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User raw($value = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereAllowedPaymentMethods($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereBankIban($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereBankName($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereCreatedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereCuisineIds($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereDeviceId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereDeviceType($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereEmail($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereFullName($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereGender($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereName($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereNotesHistory($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereNotificationId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereOsVersion($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereOtp($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User wherePassword($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User wherePhone($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereReferralCode($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereUpdatedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User whereWallet($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   getConnection()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   insert(array $values)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   insertGetId(array $values, $sequence = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   newModelQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   newQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   query()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   raw($value = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereAllowedPaymentMethods($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereBankIban($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereBankName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereCreatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereCuisineIds($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereDeviceId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereDeviceType($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereEmail($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereFullName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereGender($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereNotesHistory($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereNotificationId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereOsVersion($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereOtp($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   wherePassword($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   wherePhone($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereReferralCode($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereUpdatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|User   whereWallet($value)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -116,10 +117,7 @@ class User extends Authenticatable
     use HasPaymentTypes;
     use HasNotes;
 
-
     protected $connection = 'authmongodb';
-
-
 
     protected $guarded = [];
     protected $with    = ['addresses'];
@@ -135,7 +133,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'cuisine_ids', 'phone', 'otp', 'device_id', 'device_type', 'os_version', 'notification_id', 'email', 'allowed_payment_methods',
-        'full_name', 'bank_iban', 'bank_name',  'referral_code'  , 'services' , 'notes_history', 'block', 'password', 'gender'
+        'full_name', 'bank_iban', 'bank_name',  'referral_code', 'services', 'notes_history', 'block', 'password', 'gender',
     ];
 
     public function findForPassport($username): ?self
@@ -201,12 +199,12 @@ class User extends Authenticatable
 
     public function complains(): HasMany
     {
-        return $this->hasMany(Complaint::class, 'related_id', '_id')->where('related_type', User::class);
+        return $this->hasMany(Complaint::class, 'related_id', '_id')->where('related_type', self::class);
     }
 
     public function cashoutMethods(): HasMany
     {
-        return $this->hasMany(CashoutMethods::class, 'related_id', '_id')->where('related_type', User::class);
+        return $this->hasMany(CashoutMethods::class, 'related_id', '_id')->where('related_type', self::class);
     }
 
     public function wallet(): HasOne

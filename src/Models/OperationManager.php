@@ -4,27 +4,28 @@ namespace Saham\SharedLibs\Models;
 
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use MongoDB\Laravel\Auth\User as Authenticatable;
+use Saham\SharedLibs\Traits\Notifiable;
 
 /**
- * @property mixed $id 1 occurrences
- * @property string|null $color_code 1 occurrences
- * @property \Illuminate\Support\Carbon|null $created_at 1 occurrences
- * @property string|null $email 1 occurrences
- * @property string|null $full_name 1 occurrences
- * @property string|null $password 1 occurrences
- * @property string|null $phone 1 occurrences
- * @property string|null $type 1 occurrences
- * @property \Illuminate\Support\Carbon|null $updated_at 1 occurrences
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Client> $clients
- * @property-read int|null $clients_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Saham\SharedLibs\Models\DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token> $tokens
- * @property-read int|null $tokens_count
+ * @property mixed                                                                                                        $id                  1 occurrences
+ * @property string|null                                                                                                  $color_code          1 occurrences
+ * @property \Illuminate\Support\Carbon|null                                                                              $created_at          1 occurrences
+ * @property string|null                                                                                                  $email               1 occurrences
+ * @property string|null                                                                                                  $full_name           1 occurrences
+ * @property string|null                                                                                                  $password            1 occurrences
+ * @property string|null                                                                                                  $phone               1 occurrences
+ * @property string|null                                                                                                  $type                1 occurrences
+ * @property \Illuminate\Support\Carbon|null                                                                              $updated_at          1 occurrences
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Client>                      $clients
+ * @property int|null                                                                                                     $clients_count
+ * @property \Illuminate\Notifications\DatabaseNotificationCollection<int, \Saham\SharedLibs\Models\DatabaseNotification> $notifications
+ * @property int|null                                                                                                     $notifications_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token>                       $tokens
+ * @property int|null                                                                                                     $tokens_count
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OperationManager addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OperationManager aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OperationManager getConnection()
@@ -43,6 +44,7 @@ use MongoDB\Laravel\Auth\User as Authenticatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OperationManager wherePhone($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OperationManager whereType($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|OperationManager whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class OperationManager extends Authenticatable
@@ -59,7 +61,7 @@ class OperationManager extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'deleted_at' => 'datetime',
+        'deleted_at'        => 'datetime',
     ];
 
     protected $dates = ['deleted_at'];

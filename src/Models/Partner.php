@@ -4,7 +4,6 @@ namespace Saham\SharedLibs\Models;
 
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use MongoDB\Laravel\Relations\BelongsTo;
@@ -15,126 +14,129 @@ use Saham\SharedLibs\Traits\HasTransaction;
 use Saham\SharedLibs\Traits\HasWallet;
 use Saham\SharedLibs\Traits\Translatable;
 use MongoDB\Laravel\Auth\User as Authenticatable;
+use Saham\SharedLibs\Traits\Notifiable;
 
 /**
- * @property mixed $id 824 occurrences
- * @property string|null $account_status 192 occurrences
- * @property string|null $address 585 occurrences
- * @property bool|null $app_percentage_is_without_vat 585 occurrences
- * @property string|null $bank_IBAN 726 occurrences
- * @property string|null $bank_name 730 occurrences
- * @property string|null $block 809 occurrences
- * @property bool|null $block_from_coupon 818 occurrences
- * @property string|null $business_hours 824 occurrences
- * @property string|null $category_id 824 occurrences
- * @property string|null $city_id 731 occurrences
- * @property string|null $commercial_ID 824 occurrences
- * @property string|null $commercial_file 560 occurrences
- * @property string|null $commercial_fileURL 287 occurrences
- * @property string|null $company_name_ar 824 occurrences
- * @property string|null $company_name_en 824 occurrences
- * @property string|null $cover 563 occurrences
- * @property string|null $coverURL 820 occurrences
- * @property \Illuminate\Support\Carbon|null $created_at 824 occurrences
- * @property string|null $cuisine_ids 824 occurrences
- * @property string|null $custom_commission 615 occurrences
- * @property string|null $deleted_at 129 occurrences
- * @property string|null $device_id 778 occurrences
- * @property string|null $device_type 778 occurrences
- * @property string|null $email 824 occurrences
- * @property string|null $fcm_token 632 occurrences
- * @property string|null $full_name 824 occurrences
- * @property string|null $language 370 occurrences
- * @property string|null $logo 562 occurrences
- * @property string|null $logoURL 820 occurrences
- * @property string|null $logo_thumb 544 occurrences
- * @property string|null $logo_thumbURL 820 occurrences
- * @property string|null $notes_history 139 occurrences
- * @property string|null $notification_id 778 occurrences
- * @property string|null $os_version 778 occurrences
- * @property string|null $password 824 occurrences
- * @property string|null $phone 824 occurrences
- * @property string|null $status 824 occurrences
- * @property string|null $status_acount 27 occurrences
- * @property string|null $tax_number 601 occurrences
- * @property \Illuminate\Support\Carbon|null $updated_at 824 occurrences
- * @property string|null $wallet 550 occurrences
- * @property-read mixed $balance
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\CashoutMethods> $cashoutMethods
- * @property-read int|null $cashout_methods_count
- * @property-read \Saham\SharedLibs\Models\Category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Client> $clients
- * @property-read int|null $clients_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Menu> $menus
- * @property-read int|null $menus_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Modifier> $modifier
- * @property-read int|null $modifier_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Saham\SharedLibs\Models\DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Order> $orders
- * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerVatInvoice> $partnerInvoices
- * @property-read int|null $partner_invoices_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerPayout> $payouts
- * @property-read int|null $payouts_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Store> $stores
- * @property-read int|null $stores_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token> $tokens
- * @property-read int|null $tokens_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerTransaction> $transactions
- * @property-read int|null $transactions_count
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner aggregate($function = null, $columns = [])
+ * @property mixed                                                                                                        $id                            824 occurrences
+ * @property string|null                                                                                                  $account_status                192 occurrences
+ * @property string|null                                                                                                  $address                       585 occurrences
+ * @property bool|null                                                                                                    $app_percentage_is_without_vat 585 occurrences
+ * @property string|null                                                                                                  $bank_IBAN                     726 occurrences
+ * @property string|null                                                                                                  $bank_name                     730 occurrences
+ * @property string|null                                                                                                  $block                         809 occurrences
+ * @property bool|null                                                                                                    $block_from_coupon             818 occurrences
+ * @property string|null                                                                                                  $business_hours                824 occurrences
+ * @property string|null                                                                                                  $category_id                   824 occurrences
+ * @property string|null                                                                                                  $city_id                       731 occurrences
+ * @property string|null                                                                                                  $commercial_ID                 824 occurrences
+ * @property string|null                                                                                                  $commercial_file               560 occurrences
+ * @property string|null                                                                                                  $commercial_fileURL            287 occurrences
+ * @property string|null                                                                                                  $company_name_ar               824 occurrences
+ * @property string|null                                                                                                  $company_name_en               824 occurrences
+ * @property string|null                                                                                                  $cover                         563 occurrences
+ * @property string|null                                                                                                  $coverURL                      820 occurrences
+ * @property \Illuminate\Support\Carbon|null                                                                              $created_at                    824 occurrences
+ * @property string|null                                                                                                  $cuisine_ids                   824 occurrences
+ * @property string|null                                                                                                  $custom_commission             615 occurrences
+ * @property string|null                                                                                                  $deleted_at                    129 occurrences
+ * @property string|null                                                                                                  $device_id                     778 occurrences
+ * @property string|null                                                                                                  $device_type                   778 occurrences
+ * @property string|null                                                                                                  $email                         824 occurrences
+ * @property string|null                                                                                                  $fcm_token                     632 occurrences
+ * @property string|null                                                                                                  $full_name                     824 occurrences
+ * @property string|null                                                                                                  $language                      370 occurrences
+ * @property string|null                                                                                                  $logo                          562 occurrences
+ * @property string|null                                                                                                  $logoURL                       820 occurrences
+ * @property string|null                                                                                                  $logo_thumb                    544 occurrences
+ * @property string|null                                                                                                  $logo_thumbURL                 820 occurrences
+ * @property string|null                                                                                                  $notes_history                 139 occurrences
+ * @property string|null                                                                                                  $notification_id               778 occurrences
+ * @property string|null                                                                                                  $os_version                    778 occurrences
+ * @property string|null                                                                                                  $password                      824 occurrences
+ * @property string|null                                                                                                  $phone                         824 occurrences
+ * @property string|null                                                                                                  $status                        824 occurrences
+ * @property string|null                                                                                                  $status_acount                 27 occurrences
+ * @property string|null                                                                                                  $tax_number                    601 occurrences
+ * @property \Illuminate\Support\Carbon|null                                                                              $updated_at                    824 occurrences
+ * @property string|null                                                                                                  $wallet                        550 occurrences
+ * @property mixed                                                                                                        $balance
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\CashoutMethods>                       $cashoutMethods
+ * @property int|null                                                                                                     $cashout_methods_count
+ * @property \Saham\SharedLibs\Models\Category|null                                                                       $category
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Client>                      $clients
+ * @property int|null                                                                                                     $clients_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Menu>                                 $menus
+ * @property int|null                                                                                                     $menus_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Modifier>                             $modifier
+ * @property int|null                                                                                                     $modifier_count
+ * @property \Illuminate\Notifications\DatabaseNotificationCollection<int, \Saham\SharedLibs\Models\DatabaseNotification> $notifications
+ * @property int|null                                                                                                     $notifications_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Order>                                $orders
+ * @property int|null                                                                                                     $orders_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerVatInvoice>                    $partnerInvoices
+ * @property int|null                                                                                                     $partner_invoices_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerPayout>                        $payouts
+ * @property int|null                                                                                                     $payouts_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Store>                                $stores
+ * @property int|null                                                                                                     $stores_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\Passport\Token>                       $tokens
+ * @property int|null                                                                                                     $tokens_count
+ * @property \Illuminate\Database\Eloquent\Collection<int, \Saham\SharedLibs\Models\PartnerTransaction>                   $transactions
+ * @property int|null                                                                                                     $transactions_count
+ *
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   aggregate($function = null, $columns = [])
  * @method static \Saham\SharedLibs\Database\Factories\PartnerFactory factory($count = null, $state = [])
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner getConnection()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner insert(array $values)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner insertGetId(array $values, $sequence = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner newModelQuery()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner newQuery()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner query()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner raw($value = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereAccountStatus($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereAddress($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereAppPercentageIsWithoutVat($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereBankIBAN($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereBankName($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereBlock($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereBlockFromCoupon($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereBusinessHours($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCategoryId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCityId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCommercialFile($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCommercialFileURL($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCommercialID($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCompanyNameAr($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCompanyNameEn($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCover($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCoverURL($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCreatedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCuisineIds($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereCustomCommission($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereDeletedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereDeviceId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereDeviceType($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereEmail($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereFcmToken($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereFullName($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereLanguage($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereLogo($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereLogoThumb($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereLogoThumbURL($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereLogoURL($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereNotesHistory($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereNotificationId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereOsVersion($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner wherePassword($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner wherePhone($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereStatus($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereStatusAcount($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereTaxNumber($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereUpdatedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner whereWallet($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   getConnection()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   insert(array $values)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   insertGetId(array $values, $sequence = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   newModelQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   newQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   query()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   raw($value = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereAccountStatus($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereAddress($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereAppPercentageIsWithoutVat($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereBankIBAN($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereBankName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereBlock($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereBlockFromCoupon($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereBusinessHours($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCategoryId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCityId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCommercialFile($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCommercialFileURL($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCommercialID($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCompanyNameAr($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCompanyNameEn($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCover($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCoverURL($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCreatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCuisineIds($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereCustomCommission($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereDeletedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereDeviceId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereDeviceType($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereEmail($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereFcmToken($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereFullName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereLanguage($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereLogo($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereLogoThumb($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereLogoThumbURL($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereLogoURL($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereNotesHistory($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereNotificationId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereOsVersion($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   wherePassword($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   wherePhone($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereStatus($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereStatusAcount($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereTaxNumber($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereUpdatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Partner   whereWallet($value)
+ *
  * @mixin \Eloquent
  */
 class Partner extends Authenticatable
@@ -150,9 +152,9 @@ class Partner extends Authenticatable
 
     protected $translatable = ['company_name'];
 
-    protected $guarded = [];
+    protected $guarded    = [];
     protected $attributes = [
-        'status' => 'under_revision',
+        'status'      => 'under_revision',
         'cuisine_ids' => [],
     ];
     protected $hidden = ['remember_token', 'password'];
@@ -168,7 +170,7 @@ class Partner extends Authenticatable
         'custom_commission',
         'password',
         'category_id',
-        'address' ,
+        'address',
         'city_id',
         'bank_name',
         'bank_IBAN',
@@ -176,7 +178,7 @@ class Partner extends Authenticatable
         'company_name_en',
         'commercial_ID',
         'logo',
-        'app_percentage_is_without_vat' ,
+        'app_percentage_is_without_vat',
         'cover',
         'language',
         'logo_thumb',
@@ -185,7 +187,7 @@ class Partner extends Authenticatable
         'coverURL',
         'language',
         'logo_thumbURL',
-        'block_from_coupon' ,
+        'block_from_coupon',
         'commercial_file',
         'account_status',
         'block',
@@ -270,6 +272,6 @@ class Partner extends Authenticatable
 
     public function cashoutMethods(): HasMany
     {
-        return $this->hasMany(CashoutMethods::class, 'related_id', '_id')->where('related_type', Partner::class);
+        return $this->hasMany(CashoutMethods::class, 'related_id', '_id')->where('related_type', self::class);
     }
 }
