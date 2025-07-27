@@ -189,6 +189,7 @@ class Partner extends Authenticatable
         'logo_thumbURL',
         'block_from_coupon',
         'commercial_file',
+        'commercial_fileURL',
         'account_status',
         'block',
         'status',

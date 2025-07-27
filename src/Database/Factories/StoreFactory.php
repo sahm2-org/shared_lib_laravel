@@ -3,8 +3,6 @@
 namespace Saham\SharedLibs\Database\Factories;
 
 use Saham\SharedLibs\Models\Partner;
-use MongoDB\Laravel\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Saham\SharedLibs\Models\Store;
 
 class StoreFactory extends BaseFactory
@@ -59,9 +57,10 @@ class StoreFactory extends BaseFactory
     public function updatePaymentMethods(string $which, bool $flag)
     {
         return $this->state(function (array $attributes) use ($which, $flag) {
-            $defaults = $attributes['accepts'];
-            $defaults[$which] = $flag;
+            $defaults              = $attributes['accepts'];
+            $defaults[$which]      = $flag;
             $attributes['accepts'] = $defaults;
+
             return $attributes;
         });
     }
