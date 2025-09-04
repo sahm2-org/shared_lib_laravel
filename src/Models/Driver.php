@@ -211,6 +211,7 @@ class Driver extends Authenticatable
         'regionId',
         'cityId',
         'carTypeId',
+        'logisti_id',
         'carNumber',
         'vehicleSequenceNumber',
         'mobile',
