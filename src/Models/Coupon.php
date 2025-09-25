@@ -7,78 +7,80 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\BSON\UTCDateTime;
 use Saham\SharedLibs\Models\Abstracts\BaseModel;
-use MongoDB\Laravel\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property mixed $id 79 occurrences
- * @property float|null $amount 79 occurrences
- * @property string|null $code 79 occurrences
- * @property string|null $coupon_allowed_payment_methods 51 occurrences
- * @property \Illuminate\Support\Carbon|null $created_at 79 occurrences
- * @property \Illuminate\Support\Carbon|null $deleted_at 19 occurrences
- * @property string|null $discount_from_app 31 occurrences
- * @property string|null $discount_from_store 31 occurrences
- * @property string|null $display_public 57 occurrences
- * @property string|null $global_limit 79 occurrences
- * @property int|null $global_use 67 occurrences
- * @property string|null $latitude 79 occurrences
- * @property string|null $limit_per_user 79 occurrences
- * @property string|null $longitude 79 occurrences
- * @property float|null $minimum_amount 79 occurrences
- * @property string|null $name 79 occurrences
- * @property bool|null $package_order 36 occurrences
- * @property string|null $partner_ids 79 occurrences
- * @property string|null $promo_date_range 79 occurrences
- * @property float|null $radius 79 occurrences
- * @property string|null $send_code 6 occurrences
- * @property string|null $show_first 43 occurrences
- * @property string|null $type_discount 79 occurrences
- * @property \Illuminate\Support\Carbon|null $updated_at 79 occurrences
- * @property string|null $used_by 58 occurrences
- * @property string|null $user_type 31 occurrences
- * @property string|null $users_date_range 73 occurrences
- * @property string|null $users_id 79 occurrences
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon aggregate($function = null, $columns = [])
+ * @property mixed                           $id                             79 occurrences
+ * @property float|null                      $amount                         79 occurrences
+ * @property string|null                     $code                           79 occurrences
+ * @property string|null                     $coupon_allowed_payment_methods 51 occurrences
+ * @property \Illuminate\Support\Carbon|null $created_at                     79 occurrences
+ * @property \Illuminate\Support\Carbon|null $deleted_at                     19 occurrences
+ * @property string|null                     $discount_from_app              31 occurrences
+ * @property string|null                     $discount_from_store            31 occurrences
+ * @property string|null                     $display_public                 57 occurrences
+ * @property string|null                     $global_limit                   79 occurrences
+ * @property int|null                        $global_use                     67 occurrences
+ * @property string|null                     $latitude                       79 occurrences
+ * @property string|null                     $limit_per_user                 79 occurrences
+ * @property string|null                     $longitude                      79 occurrences
+ * @property float|null                      $minimum_amount                 79 occurrences
+ * @property string|null                     $name                           79 occurrences
+ * @property bool|null                       $package_order                  36 occurrences
+ * @property string|null                     $partner_ids                    79 occurrences
+ * @property string|null                     $promo_date_range               79 occurrences
+ * @property float|null                      $radius                         79 occurrences
+ * @property string|null                     $send_code                      6 occurrences
+ * @property string|null                     $show_first                     43 occurrences
+ * @property string|null                     $type_discount                  79 occurrences
+ * @property \Illuminate\Support\Carbon|null $updated_at                     79 occurrences
+ * @property string|null                     $used_by                        58 occurrences
+ * @property string|null                     $user_type                      31 occurrences
+ * @property string|null                     $users_date_range               73 occurrences
+ * @property string|null                     $users_id                       79 occurrences
+ *
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   aggregate($function = null, $columns = [])
  * @method static \Saham\SharedLibs\Database\Factories\CouponFactory factory($count = null, $state = [])
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon getConnection()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon insert(array $values)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon insertGetId(array $values, $sequence = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon newModelQuery()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon newQuery()
- * @method static Builder<static>|Coupon onlyTrashed()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon query()
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon raw($value = null)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereAmount($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereCode($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereCouponAllowedPaymentMethods($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereCreatedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereDeletedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereDiscountFromApp($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereDiscountFromStore($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereDisplayPublic($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereGlobalLimit($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereGlobalUse($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereId($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereLatitude($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereLimitPerUser($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereLongitude($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereMinimumAmount($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereName($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon wherePackageOrder($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon wherePartnerIds($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon wherePromoDateRange($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereRadius($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereSendCode($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereShowFirst($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereTypeDiscount($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereUpdatedAt($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereUsedBy($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereUserType($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereUsersDateRange($value)
- * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon whereUsersId($value)
- * @method static Builder<static>|Coupon withTrashed()
- * @method static Builder<static>|Coupon withoutTrashed()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   getConnection()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   insert(array $values)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   insertGetId(array $values, $sequence = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   newModelQuery()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   newQuery()
+ * @method static Builder<static>|Coupon                             onlyTrashed()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   query()
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   raw($value = null)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereAmount($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereCode($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereCouponAllowedPaymentMethods($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereCreatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereDeletedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereDiscountFromApp($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereDiscountFromStore($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereDisplayPublic($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereGlobalLimit($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereGlobalUse($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereId($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereLatitude($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereLimitPerUser($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereLongitude($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereMinimumAmount($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereName($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   wherePackageOrder($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   wherePartnerIds($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   wherePromoDateRange($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereRadius($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereSendCode($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereShowFirst($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereTypeDiscount($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereUpdatedAt($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereUsedBy($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereUserType($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereUsersDateRange($value)
+ * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Coupon   whereUsersId($value)
+ * @method static Builder<static>|Coupon                             withTrashed()
+ * @method static Builder<static>|Coupon                             withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 class Coupon extends BaseModel
@@ -95,7 +97,7 @@ class Coupon extends BaseModel
     ];
 
     protected $fillable = [
-        'name','partner_ids' ,  'user_type' ,  'discount_from_store' , 'discount_from_app' , 'show_first' , 'package_order' , 'coupon_allowed_payment_methods' ,'type_discount','amount','code','minimum_amount','users_id','users_date_range','promo_date_range','limit_per_user','global_limit','radius','latitude','longitude','send_code','display_public',
+        'name', 'partner_ids',  'user_type',  'discount_from_store', 'discount_from_app', 'show_first', 'package_order', 'coupon_allowed_payment_methods', 'type_discount', 'amount', 'code', 'minimum_amount', 'users_id', 'users_date_range', 'promo_date_range', 'limit_per_user', 'global_limit', 'radius', 'latitude', 'longitude', 'send_code', 'display_public',
     ];
     protected $dates = ['deleted_at'];
 
