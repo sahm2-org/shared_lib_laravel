@@ -170,6 +170,8 @@ use Saham\SharedLibs\Traits\Translatable;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where4($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Store where5($value)
  *
+ * @property array|null $delivery_integrations
+ * @property array|null $loyalty_settings
  * @mixin \Eloquent
  */
 class Store extends BaseModel
@@ -179,7 +181,7 @@ class Store extends BaseModel
     use HasWallet;
     use SoftDeletes;
     use HasPaymentTypes;
-    use HasNotes ;
+    use HasNotes;
 
     protected $translatable = ['name', 'desc'];
     protected $attributes   = [
@@ -254,6 +256,53 @@ class Store extends BaseModel
             ->orderByDesc('created_at')
             ->orderByDesc('show_first')
             ->get();
+    }
+
+    /**
+     * Get all delivery integration mappings for this store
+     *
+     * @return \MongoDB\Laravel\Relations\HasMany
+     */
+    public function deliveryIntegrationMappings(): HasMany
+    {
+        return $this->hasMany(DeliveryIntegrationMapping::class, 'store_id', '_id');
+    }
+
+    /**
+     * Get active delivery integration mappings only
+     *
+     * @return \MongoDB\Laravel\Relations\HasMany
+     */
+    public function activeDeliveryIntegrationMappings(): HasMany
+    {
+        return $this->hasMany(DeliveryIntegrationMapping::class, 'store_id', '_id')
+            ->where('is_active', true);
+    }
+
+    /**
+     * Check if store has any active integrations
+     *
+     * @return bool
+     */
+    public function hasActiveIntegrations(): bool
+    {
+        return $this->deliveryIntegrationMappings()
+            ->where('is_active', true)
+            ->exists();
+    }
+
+    /**
+     * Get integration mapping for specific provider
+     *
+     * @param string $provider
+     * @return DeliveryIntegrationMapping|null
+     */
+    public function getIntegrationMapping(string $provider): ?DeliveryIntegrationMapping
+    {
+        return $this->deliveryIntegrationMappings()
+            ->where('provider', $provider)
+            ->where('is_active', true)
+            ->first();
     }
 
     public function getFavorites(): ?int

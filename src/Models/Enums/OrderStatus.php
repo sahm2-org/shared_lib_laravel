@@ -36,10 +36,12 @@ enum OrderStatus: string
     case Opened = 'opened';
 
     case Closed = 'closed';
-    
+
     case PriceReview = 'price_review';
 
     case Paid = 'paid';
+
+    case Scheduled = 'scheduled';
 
     /**
      *  Get all active statuses.
@@ -58,8 +60,9 @@ enum OrderStatus: string
             self::Preparing,
             self::Prepared,
             self::Accepted,
-            self::PriceReview ,
-            self::Paid ,
+            self::PriceReview,
+            self::Paid,
+            self::Scheduled,
         ]), 'value');
     }
 
@@ -74,6 +77,7 @@ enum OrderStatus: string
             self::Pending,
             self::InDelivery,
             self::InLocation,
+            self::Scheduled,
         ]), 'value');
     }
 
@@ -145,7 +149,7 @@ enum OrderStatus: string
             self::Rejected,
             self::Completed,
             self::Accepted,
-            self::PriceReview ,
+            self::PriceReview,
         ]), 'value');
     }
 
