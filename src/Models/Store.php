@@ -15,6 +15,8 @@ use Saham\SharedLibs\Traits\HasNotes;
 use Saham\SharedLibs\Traits\HasPaymentTypes;
 use Saham\SharedLibs\Traits\HasWallet;
 use Saham\SharedLibs\Traits\Translatable;
+use App\Models\DeliveryIntegrationMapping;
+use App\Models\OrderIntegration;
 
 /**
  * @property mixed                                                                                      $id                      1000 occurrences
