@@ -22,6 +22,11 @@ use Saham\SharedLibs\Traits\HasStateMachines;
  * @property bool|null $cash_paid 999 occurrences
  * @property string|null $coupon 951 occurrences
  * @property string|null $coupon_type_discount 314 occurrences
+ * @property \Illuminate\Support\Carbon|null $scheduled_pickup_time
+ * @property bool $is_gift
+ * @property string|null $recipient_name
+ * @property string|null $recipient_phone
+ * @property string|null $recipient_address
  * @property \Illuminate\Support\Carbon|null $created_at 1000 occurrences
  * @property string|null $deliver_type 1000 occurrences
  * @property float|null $delivery_fee 1000 occurrences
@@ -169,6 +174,8 @@ use Saham\SharedLibs\Traits\HasStateMachines;
  */
 class Order extends BaseModel
 {
+
+
     use HasFactory;
     use HasNotes;
     use HasStateMachines;
@@ -188,6 +195,7 @@ class Order extends BaseModel
 
     protected $casts = [
         'ref_id' => 'string',
+        'scheduled_pickup_time' => 'datetime',
     ];
 
     public function scopeCurrentStatus($query, $status): Builder
@@ -203,6 +211,19 @@ class Order extends BaseModel
         }
 
         return $query;
+    }
+
+    public static function onlyActive(): array
+    {
+        return OrderStatus::onlyActive();
+    }
+
+    /**
+     * Get all statuses that are considered "in way" (active delivery).
+     */
+    public static function onlyInWay(): array
+    {
+        return OrderStatus::onlyInWay();
     }
 
     public function user(): BelongsTo

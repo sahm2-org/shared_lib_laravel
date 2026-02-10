@@ -86,7 +86,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Coupon extends BaseModel
 {
     use HasFactory;
-    use SoftDeletes ;
+    use SoftDeletes;
 
     protected $casts = [
         'amount'         => 'double',
@@ -94,10 +94,45 @@ class Coupon extends BaseModel
         'minimum_amount' => 'double',
         'radius'         => 'double',
         'deleted_at'     => 'datetime',
+        'valid_from'     => 'datetime',
+        'valid_to'       => 'datetime',
+        'is_loyalty_coupon' => 'boolean',
+        'is_general_loyalty_coupon' => 'boolean',
+        'points_redeemed' => 'integer',
     ];
 
     protected $fillable = [
-        'name', 'partner_ids',  'user_type',  'discount_from_store', 'discount_from_app', 'show_first', 'package_order', 'coupon_allowed_payment_methods', 'type_discount', 'amount', 'code', 'minimum_amount', 'users_id', 'users_date_range', 'promo_date_range', 'limit_per_user', 'global_limit', 'radius', 'latitude', 'longitude', 'send_code', 'display_public',
+        'name',
+        'partner_ids',
+        'user_type',
+        'discount_from_store',
+        'discount_from_app',
+        'show_first',
+        'package_order',
+        'coupon_allowed_payment_methods',
+        'type_discount',
+        'amount',
+        'code',
+        'minimum_amount',
+        'users_id',
+        'users_date_range',
+        'promo_date_range',
+        'limit_per_user',
+        'global_limit',
+        'radius',
+        'latitude',
+        'longitude',
+        'send_code',
+        'display_public',
+        // Loyalty system fields
+        'is_loyalty_coupon',
+        'is_general_loyalty_coupon',
+        'points_redeemed',
+        'valid_from',
+        'valid_to',
+        'status',
+        'store_id',
+        'partner_id',
     ];
     protected $dates = ['deleted_at'];
 
@@ -120,17 +155,54 @@ class Coupon extends BaseModel
 
     public function isInDateRange(): bool
     {
-        if ($this->promo_date_range) {
-            $now   = new DateTime();
+        $now = new DateTime();
 
-            if ($this->promo_date_range['end'] && $this->promo_date_range['end'] instanceof UTCDateTime) {
+        // Check new format first (valid_from / valid_to) - used by loyalty system
+        if ($this->valid_from || $this->valid_to) {
+            try {
+                // Check start date (valid_from)
+                if ($this->valid_from) {
+                    $validFrom = $this->valid_from instanceof \Carbon\Carbon
+                        ? $this->valid_from->toDateTime()
+                        : (is_string($this->valid_from) ? new DateTime($this->valid_from) : $this->valid_from);
+
+                    if ($validFrom > $now) {
+                        return false; // Not started yet
+                    }
+                }
+
+                // Check end date (valid_to)
+                if ($this->valid_to) {
+                    $validTo = $this->valid_to instanceof \Carbon\Carbon
+                        ? $this->valid_to->toDateTime()
+                        : (is_string($this->valid_to) ? new DateTime($this->valid_to) : $this->valid_to);
+
+                    if ($validTo < $now) {
+                        return false; // Expired
+                    }
+                }
+
+                return true;
+            } catch (\Exception $e) {
+                // If parsing fails, log and fall through to old format check
+                \Illuminate\Support\Facades\Log::warning('[Coupon] Failed to parse valid_from/valid_to', [
+                    'coupon_code' => $this->code ?? 'unknown',
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
+
+        // Check old format (promo_date_range) - for backward compatibility
+        if ($this->promo_date_range) {
+            // Handle BSON UTCDateTime (MongoDB format)
+            if (isset($this->promo_date_range['end']) && $this->promo_date_range['end'] instanceof UTCDateTime) {
                 if ($this->promo_date_range['end']->toDateTime() < $now) {
                     return false;
                 }
             }
 
             if (
-                $this->promo_date_range['start']
+                isset($this->promo_date_range['start'])
                 && $this->promo_date_range['start'] instanceof UTCDateTime
             ) {
                 if ($this->promo_date_range['start']->toDateTime() > $now) {

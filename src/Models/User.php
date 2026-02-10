@@ -132,8 +132,24 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'cuisine_ids', 'phone', 'otp', 'device_id', 'device_type', 'os_version', 'notification_id', 'email', 'allowed_payment_methods',
-        'full_name', 'bank_iban', 'bank_name',  'referral_code', 'services', 'notes_history', 'block', 'password', 'gender',
+        'cuisine_ids',
+        'phone',
+        'otp',
+        'device_id',
+        'device_type',
+        'os_version',
+        'notification_id',
+        'email',
+        'allowed_payment_methods',
+        'full_name',
+        'bank_iban',
+        'bank_name',
+        'referral_code',
+        'services',
+        'notes_history',
+        'block',
+        'password',
+        'gender',
     ];
 
     public function findForPassport($username): ?self
@@ -159,6 +175,11 @@ class User extends Authenticatable
     public function delivers(): HasMany
     {
         return $this->hasMany(Deliver::class);
+    }
+
+    public function loyaltyPoints(): HasMany
+    {
+        return $this->hasMany(LoyaltyPoint::class, 'user_id');
     }
 
     public function orders(): HasMany
