@@ -3,15 +3,15 @@
 namespace Saham\SharedLibs\Traits;
 
 use Ashraf\EloquentStateMachine\StateMachines\State;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
 use Javoscript\MacroableModels\Facades\MacroableModels;
 use Saham\SharedLibs\Models\StateHistory;
 use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Query\Builder;
 
 /**
- * Trait HasStateMachines
- * @package Ashraf\LaravelEloquentStateMachines\Traits
+ * Trait HasStateMachines.
+ *
  * @property array $stateMachines
  */
 trait HasStateMachines
@@ -24,6 +24,7 @@ trait HasStateMachines
             ->each(function ($_, $field) use ($model) {
                 MacroableModels::addMacro(static::class, $field, function () use ($field) {
                     $stateMachine = new $this->stateMachines[$field]($field, $this);
+
                     return new State($this->{$stateMachine->field}, $stateMachine);
                 });
 
@@ -31,6 +32,7 @@ trait HasStateMachines
 
                 MacroableModels::addMacro(static::class, $camelField, function () use ($field) {
                     $stateMachine = new $this->stateMachines[$field]($field, $this);
+
                     return new State($this->{$stateMachine->field}, $stateMachine);
                 });
 
@@ -48,6 +50,7 @@ trait HasStateMachines
                         if ($callable !== null) {
                             $callable($query);
                         }
+
                         return $query;
                     });
                 });
@@ -109,14 +112,13 @@ trait HasStateMachines
         return $this->morphMany(StateHistory::class, 'model');
     }
 
-
     public function recordState($field, $from, $to, $customProperties = [], $responsible = null, $changedAttributes = [])
     {
         $stateHistory = StateHistory::make([
-            'field' => $field,
-            'from' => $from,
-            'to' => $to,
-            'custom_properties' => $customProperties,
+            'field'              => $field,
+            'from'               => $from,
+            'to'                 => $to,
+            'custom_properties'  => $customProperties,
             'changed_attributes' => $changedAttributes,
         ]);
 

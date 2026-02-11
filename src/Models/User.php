@@ -5,10 +5,9 @@ namespace Saham\SharedLibs\Models;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 // use Illuminate\Contracts\Auth\Authenticatable;
 use MongoDB\Laravel\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Passport\HasApiTokens;
-use MongoDB\Laravel\Query\Builder;
 use MongoDB\Laravel\Relations\HasMany;
 use MongoDB\Laravel\Relations\HasOne;
 use Saham\SharedLibs\Traits\HasNotes;
@@ -203,7 +202,7 @@ class User extends Authenticatable
             ->orderByDesc('created_at');
     }
 
-    public function favorites(): EloquentBuilder|HasMany
+    public function favorites(): Builder|HasMany
     {
         return $this->hasMany(Favorite::class, 'user_id')->with('store');
     }

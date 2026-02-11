@@ -3,9 +3,9 @@
 namespace Saham\SharedLibs\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Saham\SharedLibs\Helpers\PermissionHelpers;
 use MongoDB\Laravel\Eloquent\Model as Eloquent;
-use MongoDB\Laravel\Query\Builder;
 use Saham\SharedLibs\Traits\HasPermissions;
 use Spatie\Permission\Contracts\Role as RoleContract;
 use Spatie\Permission\Exceptions\GuardDoesNotMatch;
@@ -16,15 +16,16 @@ use Spatie\Permission\Guard;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 
 /**
- * @property mixed $id 22 occurrences
- * @property string|null $administrator_ids 18 occurrences
- * @property \Illuminate\Support\Carbon|null $created_at 22 occurrences
- * @property string|null $guard_name 19 occurrences
- * @property string|null $name 22 occurrences
- * @property string|null $permission_ids 17 occurrences
- * @property \Illuminate\Support\Carbon|null $updated_at 22 occurrences
- * @property-read Collection<string>|null $permissions
- * @property-read mixed|null $users
+ * @property mixed                           $id                22 occurrences
+ * @property string|null                     $administrator_ids 18 occurrences
+ * @property \Illuminate\Support\Carbon|null $created_at        22 occurrences
+ * @property string|null                     $guard_name        19 occurrences
+ * @property string|null                     $name              22 occurrences
+ * @property string|null                     $permission_ids    17 occurrences
+ * @property \Illuminate\Support\Carbon|null $updated_at        22 occurrences
+ * @property Collection<string>|null         $permissions
+ * @property mixed|null                      $users
+ *
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Role addHybridHas(\Illuminate\Database\Eloquent\Relations\Relation $relation, string $operator = '>=', string $count = 1, string $boolean = 'and', ?\Closure $callback = null)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Role aggregate($function = null, $columns = [])
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Role getConnection()
@@ -42,6 +43,7 @@ use Spatie\Permission\Traits\RefreshesPermissionCache;
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Role whereName($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Role wherePermissionIds($value)
  * @method static \MongoDB\Laravel\Eloquent\Builder<static>|Role whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Role extends Eloquent
@@ -82,9 +84,11 @@ class Role extends Eloquent
         $existing                 = static::query()->where('name', $attributes['name'])->where('guard_name', $attributes['guard_name'])->first();
 
         if ($existing) {
-            $name      = (string)$attributes['name'];
-            $guardName = (string)$attributes['guard_name'];
+            $name      = (string) $attributes['name'];
+            $guardName = (string) $attributes['guard_name'];
+
             return $existing;
+
             throw new RoleAlreadyExists($helpers->getRoleAlreadyExistsMessage($name, $guardName));
         }
 
@@ -113,7 +117,9 @@ class Role extends Eloquent
         return $role;
     }
 
-    public static function findById(): void {}
+    public static function findById(): void
+    {
+    }
 
     /**
      * Find a role by its name and guard name.
@@ -132,6 +138,7 @@ class Role extends Eloquent
 
         if (!$role) {
             $helpers = new PermissionHelpers();
+
             throw new RoleDoesNotExist($helpers->getRoleDoesNotExistMessage($name, $guardName));
         }
 
@@ -144,6 +151,7 @@ class Role extends Eloquent
     public function usersQuery(): mixed
     {
         $usersClass = app($this->helpers->getModelForGuard($this->attributes['guard_name']));
+
         return $usersClass->query()->where('role_ids', 'all', [$this->_id]);
     }
 
