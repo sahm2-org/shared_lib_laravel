@@ -27,13 +27,17 @@ use Saham\SharedLibs\StateMachines\ExternalOrderStatusMachine;
  * @property string       $code              the order code (Auto-generated EXT-XXXXXXXX)
  * @property string       $description       the order description and product links
  * @property array        $attachments       the order attachments (images/files paths)
- * @property string       $status            the order status
- * @property string|null  $user_id           the order owner (the user)
- * @property string|null  $supplier_id       the order executor (the supplier)
- * @property float|null   $price             the order price
- * @property float|null   $shipping_cost     the shipping cost
- * @property float|null   $total_cost        the total cost (set by the supplier)
- * @property string|null  $pending_order_id  the PendingOrder ID when online payment
+ * @property string       $status              the order status
+ * @property string|null  $user_id             the order owner (the user)
+ * @property string|null  $supplier_id         the order executor (the supplier)
+ * @property float|null   $price               the order price
+ * @property float|null   $shipping_cost       the shipping cost
+ * @property float|null   $total_cost          the total cost (set by the supplier)
+ * @property string|null  $pending_order_id    the PendingOrder ID when online payment
+ * @property string|null  $shipping_method     shipping method chosen by the customer (e.g. 'delivery', 'pickup')
+ * @property string|null  $shipping_address    text address for delivery (if provided by text)
+ * @property float|null   $shipping_latitude   GPS latitude for delivery location
+ * @property float|null   $shipping_longitude  GPS longitude for delivery location
  */
 class ExternalOrder extends BaseModel
 {
@@ -82,22 +86,28 @@ class ExternalOrder extends BaseModel
           'total_cost',
           'pending_order_id',  // Link to PendingOrder when online payment
           'paid_at',
+          'shipping_method',     // shipping method chosen by the customer (e.g. 'delivery', 'pickup')
+          'shipping_address',    // text address (if the customer typed the address manually)
+          'shipping_latitude',   // GPS latitude  (if the customer picked a location on the map)
+          'shipping_longitude',  // GPS longitude (if the customer picked a location on the map)
      ];
 
      /**
       * ─── Casts ────────────────────────────────────────────────────────
       */
      protected $casts = [
-          'attachments'  => 'array',
-          'price'        => 'float',
-          'shipping_cost' => 'float',
-          'tax_value'    => 'float',
+          'attachments'        => 'array',
+          'price'              => 'float',
+          'shipping_cost'      => 'float',
+          'tax_value'          => 'float',
           'other_services_cost' => 'float',
-          'total_cost'   => 'float',
-          'paid_at'      => 'datetime',
-          'created_at'   => 'datetime',
-          'updated_at'   => 'datetime',
-          'deleted_at'   => 'datetime',
+          'total_cost'         => 'float',
+          'shipping_latitude'  => 'float',
+          'shipping_longitude' => 'float',
+          'paid_at'            => 'datetime',
+          'created_at'         => 'datetime',
+          'updated_at'         => 'datetime',
+          'deleted_at'         => 'datetime',
      ];
 
      /**
